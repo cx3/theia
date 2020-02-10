@@ -144,7 +144,16 @@ function rebuildCommand(command: string, target: ApplicationProps.Target): yargs
         })
         .command({
             command: 'download:plugins',
-            handler: () => downloadPlugins()
+            describe: 'Download defined external plugins.',
+            builder: {
+                'preserveVsix': {
+                    alias: 'p',
+                    describe: 'Preserve the plugins as \'vsix\' files',
+                    boolean: true,
+                    default: false,
+                }
+            },
+            handler: args => downloadPlugins(args),
         }).command({
             command: 'test',
             builder: {
